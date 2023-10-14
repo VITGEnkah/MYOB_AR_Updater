@@ -35,6 +35,10 @@ $apiurl = $Baseurl + "MYOB_AccountRight_API_AddOnConnector_Installer_" + $newVer
 
 # Check if new version is up for download
 try{
+
+    # Use TLS 1.2 or higher
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
     # Use wget to download the file
     $response = wget $clienturl -ErrorAction Stop
 
