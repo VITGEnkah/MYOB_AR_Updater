@@ -40,7 +40,7 @@ try{
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
     # Use wget to download the file
-    $response = wget $clienturl -ErrorAction Stop
+    $response = wget $clienturl -ErrorAction Stop -UseBasicParsing
 
     # Get the status code
     $statusCode = $response.StatusCode
