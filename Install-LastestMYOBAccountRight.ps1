@@ -22,8 +22,8 @@ Write-host "Latest Installed Version: " $current
 $year, $month = $current -split '\.'
 # Increment the month
 $newMonth = [int]$month + 1
-# Check if the month exceeds 12 (reset to 1 in that case) and adjust the year accordingly
-if ($newMonth -gt 12) {
+# Check if the month exceeds 11 (reset to 1 in that case) and adjust the year accordingly
+if ($newMonth -gt 11) {
     $newMonth = 1
     $year = [int]$year + 1
 }
