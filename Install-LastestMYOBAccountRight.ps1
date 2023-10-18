@@ -82,9 +82,9 @@ If (@(0,3010) -contains $InstallCMD.exitcode) {
 }
 
 Write-host "Cleaning up Start Menu"
-rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight" + $DownloadVersion + "\Tools\") -Recurse -Force
-rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight" + $DownloadVersion + "\AccountRight User Guide (AU).lnk") -Force
-rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight" + $DownloadVersion + "\AccountRight User Guide (NZ).lnk") -Force
+rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion  + "\Tools\") -Recurse -Force
+rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (AU).lnk") -Force
+rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (NZ).lnk") -Force
 
 Write-host "Installing" $MYOB_AccountRight_API_Setup_msi  -ForegroundColor Green
 $FullPkgPath = $scriptdir + "\" + $MYOB_AccountRight_API_Setup_msi
