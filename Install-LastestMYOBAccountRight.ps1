@@ -72,7 +72,7 @@ $InstallCMD = Start-Process -NoNewWindow -FilePath MSIEXEC -ArgumentList $Args -
 
 # Check if install worked
 If (@(0,3010) -contains $InstallCMD.exitcode) { 
-    write-host "Install Successful" -ForegroundColor Green
+    write-host "Install of AccountRight Successful" -ForegroundColor Green
     
     # Clean-up and remove the MSI
     Remove-Item -Path $FullPkgPath -Force
@@ -86,6 +86,9 @@ rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB Accoun
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (AU).lnk") -Force
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (NZ).lnk") -Force
 
+Write-Host "Cleaning up Public Desktop" -ForegroundColor Green
+rm -Path ("C:\Users\Public\Desktop\MYOB AccountRight " + $newVersion + ".lnk") -Force
+
 Write-host "Installing" $MYOB_AccountRight_API_Setup_msi  -ForegroundColor Green
 $FullPkgPath = $scriptdir + "\" + $MYOB_AccountRight_API_Setup_msi
 $Args = "/i " + $FullPkgPath + " ACCEPTEULA=1 /qb /norestart /log " + $FullPkgPath + ".log"
@@ -93,7 +96,7 @@ write-host "MSIEXEC" $Args
 $InstallCMD = Start-Process -NoNewWindow -FilePath MSIEXEC -ArgumentList $Args -wait -passthru
 Start-Sleep 5
 If (@(0,3010) -contains $InstallCMD.exitcode){ 
-    write-host "Install Successful"
+    write-host "Install of API Successful" -ForegroundColor Green
     
     # Clean-up and remove the MSI
     Remove-Item -Path $FullPkgPath -Force 
