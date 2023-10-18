@@ -72,7 +72,7 @@ $InstallCMD = Start-Process -NoNewWindow -FilePath MSIEXEC -ArgumentList $Args -
 
 # Check if install worked
 If (@(0,3010) -contains $InstallCMD.exitcode) { 
-    write-host "Install Successful" 
+    write-host "Install Successful" -ForegroundColor Green
     
     # Clean-up and remove the MSI
     Remove-Item -Path $FullPkgPath -Force
@@ -81,8 +81,8 @@ If (@(0,3010) -contains $InstallCMD.exitcode) {
     Return
 }
 
-Write-host "Cleaning up Start Menu"
-rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion  + "\Tools\") -Recurse -Force
+Write-host "Cleaning up Start Menu" -ForegroundColor Green
+rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\Tools\") -Recurse -Force
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (AU).lnk") -Force
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (NZ).lnk") -Force
 
