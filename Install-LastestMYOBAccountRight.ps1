@@ -87,7 +87,7 @@ rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB Accoun
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (NZ).lnk") -Force
 
 Write-Host "Cleaning up Public Desktop" -ForegroundColor Green
-rm -Path ("C:\Users\Public\Desktop\MYOB AccountRight " + $newVersion + ".lnk") -Force
+rm -Path ("C:\Users\Public\Desktop\AccountRight " + $newVersion + ".lnk") -Force
 
 Write-host "Installing" $MYOB_AccountRight_API_Setup_msi  -ForegroundColor Green
 $FullPkgPath = $scriptdir + "\" + $MYOB_AccountRight_API_Setup_msi
