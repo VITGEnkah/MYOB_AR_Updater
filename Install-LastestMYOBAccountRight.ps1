@@ -14,8 +14,8 @@ $ErrorActionPreference = "Continue"
 Start-Transcript -path ($scriptdir + "\Install-MYOB-AR-Client.log")
 
 # Get the current version
-$InstalledApps = Get-ChildItem -Path "HKLM:\SOFTWARE\WOW6432Node\MYOB\AccountRight Client" | Get-ItemProperty |select PSChildName
-$current = ($installedApps | Measure-Object -Property PSChildName -Maximum).maximum
+$InstalledApps = Get-ChildItem -Path "HKLM:\SOFTWARE\WOW6432Node\MYOB\AccountRight Client" | Get-ItemProperty | Select-Object @{Name='Version'; Expression={[version]$_.PSChildName}}
+$current = ($InstalledApps | Measure-Object -Property Version -Maximum).Maximum.ToString()
 Write-host "Latest Installed Version: " $current
 
 # Split the current version into year and month
