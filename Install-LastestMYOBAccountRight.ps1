@@ -14,6 +14,11 @@ $ErrorActionPreference = "Continue"
 Start-Transcript -path ($scriptdir + "\Install-MYOB-AR-Client.log")
 
 # Get the current version
+if(!(Test-Path -Path "HKLM:\SOFTWARE\WOW6432Node\MYOB\AccountRight Client")){
+    Write-host "No MYOB Version found, dosen't support new installs! (yet)" -ForegroundColor Red
+    exit;
+}
+
 $InstalledApps = Get-ChildItem -Path "HKLM:\SOFTWARE\WOW6432Node\MYOB\AccountRight Client" | Get-ItemProperty | Select-Object @{Name='Version'; Expression={[version]$_.PSChildName}}
 $current = ($InstalledApps | Measure-Object -Property Version -Maximum).Maximum.ToString()
 Write-host "Latest Installed Version: " $current
