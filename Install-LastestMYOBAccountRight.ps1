@@ -13,6 +13,9 @@ Stop-Transcript | out-null
 $ErrorActionPreference = "Continue"
 Start-Transcript -path ($scriptdir + "\Install-MYOB-AR-Client.log")
 
+# Check for old MSI files and clean them up
+Get-ChildItem -Path $scriptdir -Filter *.msi | Remove-Item -Force
+
 # Get the current version
 if(!(Test-Path -Path "HKLM:\SOFTWARE\WOW6432Node\MYOB\AccountRight Client")){
     Write-host "No MYOB Version found, dosen't support new installs! (yet)" -ForegroundColor Red
