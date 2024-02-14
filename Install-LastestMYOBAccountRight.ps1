@@ -1,9 +1,14 @@
 ## 
 ## 
 ## 
+param(
+    [switch]$KeepPublicDesktopShortcut
+)
 
+# Variables
 $Baseurl = "https://download.myob.com/arl/msi/"
 
+# Constants, don't touch these!
 $scriptdir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
 $ProgressPreference = 'SilentlyContinue'
 
@@ -95,8 +100,10 @@ rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB Accoun
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (AU).lnk") -Force
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (NZ).lnk") -Force
 
-Write-Host "Cleaning up Public Desktop" -ForegroundColor Green
-rm -Path ("C:\Users\Public\Desktop\AccountRight " + $newVersion + ".lnk") -Force
+if (-not $KeepPublicDesktopShortcut) {
+	Write-Host "Cleaning up Public Desktop" -ForegroundColor Green
+	rm -Path ("C:\Users\Public\Desktop\AccountRight " + $newVersion + ".lnk") -Force
+}
 
 Write-host "Installing" $MYOB_AccountRight_API_Setup_msi  -ForegroundColor Green
 $FullPkgPath = $scriptdir + "\" + $MYOB_AccountRight_API_Setup_msi
