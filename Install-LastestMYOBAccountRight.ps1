@@ -12,6 +12,9 @@ $Baseurl = "https://download.myob.com/arl/msi/"
 $scriptdir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
 $ProgressPreference = 'SilentlyContinue'
 
+# Delete old logs
+Remove-Item "$scriptdir\*.log" -Force
+
 # Log events to MYOB-AR-Downloader.log
 $ErrorActionPreference="SilentlyContinue"
 Stop-Transcript | out-null
