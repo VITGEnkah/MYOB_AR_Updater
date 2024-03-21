@@ -2,7 +2,8 @@
 ## 
 ## 
 param(
-    [switch]$KeepPublicDesktopShortcut
+    [switch]$KeepPublicDesktopShortcut,
+    [switch]$UninstallOld
 )
 
 # Variables
@@ -103,9 +104,28 @@ rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB Accoun
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (AU).lnk") -Force
 rm -Path ("C:\programdata\Microsoft\Windows\Start Menu\Programs\MYOB\MYOB AccountRight " + $newVersion + "\AccountRight User Guide (NZ).lnk") -Force
 
+# Delete the Public Desktop by default
 if (-not $KeepPublicDesktopShortcut) {
 	Write-Host "Cleaning up Public Desktop" -ForegroundColor Green
 	rm -Path ("C:\Users\Public\Desktop\AccountRight " + $newVersion + ".lnk") -Force
+}
+
+
+if($UninstallOld) {
+    $installedApplications = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "MYOB AccountRight*" }
+    $sortedApplications = $installedApplications | Sort-Object -Property Version -Descending
+
+    # Keep only the two most recent versions
+    $latestApplications = $sortedApplications[0..1]
+
+    # Uninstall all versions except the two most recent
+    foreach ($application in $sortedApplications) {
+        if ($application -notin $latestApplications) {
+            Write-Host "Uninstalling $($application.Name) version $($application.Version)..." -ForegroundColor Cyan
+            $application.Uninstall()
+            Write-Host "Uninstalled $($application.Name) version $($application.Version)" -ForegroundColor Cyan
+        }
+    }
 }
 
 Write-host "Installing" $MYOB_AccountRight_API_Setup_msi  -ForegroundColor Green
