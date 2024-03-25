@@ -112,7 +112,7 @@ if (-not $KeepPublicDesktopShortcut) {
 
 
 if($UninstallOld) {
-    $installedApplications = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "MYOB AccountRight*" }
+    $installedApplications = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "MYOB AccountRight 20*" }
     $sortedApplications = $installedApplications | Sort-Object -Property Version -Descending
 
     # Keep only the two most recent versions
